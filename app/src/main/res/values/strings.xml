@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FileObserverTester</string>
+    <string name="no_permission">外部ストレージへのアクセスを許可してください。</string>
 </resources>
