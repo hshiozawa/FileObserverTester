@@ -6,9 +6,14 @@ import android.util.Log;
 public class MainApplication extends Application {
     private static final String TAG = MainApplication.class.getSimpleName();
 
+    private FileObserverManager manager;
+
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate()");
+
+        manager = new FileObserverManager();
+        manager.startWatch();
     }
 }
