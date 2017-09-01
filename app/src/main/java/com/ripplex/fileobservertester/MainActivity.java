@@ -14,9 +14,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (!RuntimePermissionsChecker.checkSelfStoragePermissions(getApplicationContext())) {
-            RuntimePermissionsChecker.requestStoragePermissions(this, PERMISSION_REQUEST_CODE);
+        if (hasStoragePermissions()) {
+            startWatch();
+        } else {
+            requestStoragePermissions();
         }
+    }
+
+    private boolean hasStoragePermissions() {
+        return RuntimePermissionsChecker.checkSelfStoragePermissions(getApplicationContext());
+    }
+
+    private void requestStoragePermissions() {
+        RuntimePermissionsChecker.requestStoragePermissions(this, PERMISSION_REQUEST_CODE);
+    }
+
+    private void startWatch() {
+        ((MainApplication) getApplication()).getFileObserverManager().startWatch();
     }
 
     @Override
@@ -25,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             RuntimePermissionsChecker.Result result = RuntimePermissionsChecker.validateStoragePermissionsResult(permissions, grantResults);
             switch (result) {
                 case GRANTED:
+                    startWatch();
                     break;
                 case DENIED:
                 case INVALID:

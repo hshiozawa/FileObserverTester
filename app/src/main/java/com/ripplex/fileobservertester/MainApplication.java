@@ -14,6 +14,9 @@ public class MainApplication extends Application {
         Log.d(TAG, "onCreate()");
 
         manager = new FileObserverManager();
-        manager.startWatch();
+    }
+
+    public FileObserverManager getFileObserverManager() {
+        return manager;
     }
 }
