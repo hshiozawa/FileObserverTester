@@ -10,7 +10,7 @@ import java.util.List;
 public class FileObserverManager {
     private static final String TAG = FileObserverManager.class.getSimpleName();
 
-    private static final int TARGET_EVENTS = FileObserver.CREATE | FileObserver.DELETE | FileObserver.MOVED_TO;
+    private static final int TARGET_EVENTS = FileObserver.CREATE | FileObserver.MOVED_FROM | FileObserver.MOVED_TO | FileObserver.DELETE;
     // for debug
     //private static final int TARGET_EVENTS = FileObserver.ALL_EVENTS;
 
@@ -53,6 +53,10 @@ public class FileObserverManager {
         switch (event) {
             case FileObserver.CREATE:
                 Log.i(TAG, "-- CREATE");
+                checkFileExists(path, basePath, false);
+                break;
+            case FileObserver.MOVED_FROM:
+                Log.i(TAG, "-- MOVED_FROM");
                 checkFileExists(path, basePath, false);
                 break;
             case FileObserver.MOVED_TO:
